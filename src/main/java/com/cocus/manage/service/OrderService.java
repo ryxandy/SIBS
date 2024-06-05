@@ -37,6 +37,8 @@ public class OrderService {
         int availableStock = calculateAvailableStock(order.getItem().getId());
         if (availableStock >= order.getQuantity()) {
             fulfillOrder(order);
+        }else{
+
         }
 
         return orderRepository.save(order);

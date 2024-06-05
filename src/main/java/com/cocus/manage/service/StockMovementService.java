@@ -1,7 +1,9 @@
 package com.cocus.manage.service;
 import com.cocus.manage.OrderStatus;
+import com.cocus.manage.model.Item;
 import com.cocus.manage.model.Order;
 import com.cocus.manage.model.StockMovement;
+import com.cocus.manage.repository.ItemRepository;
 import com.cocus.manage.repository.OrderRepository;
 import com.cocus.manage.repository.StockMovementRepository;
 import jakarta.transaction.Transactional;
@@ -10,12 +12,16 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StockMovementService {
 
     @Autowired
     private StockMovementRepository stockMovementRepository;
+
+    @Autowired
+    private ItemRepository itemRepository;
 
     @Autowired
     private OrderRepository orderRepository;
@@ -26,7 +32,19 @@ public class StockMovementService {
     @Transactional
     public StockMovement createStockMovement(StockMovement stockMovement) {
         stockMovement.setCreationDate(LocalDateTime.now());
+
+        // Verificar se o item existe no banco de dados
+        Optional<Item> itemOptional = itemRepository.findById(stockMovement.getItem().getId());
+        if (!itemOptional.isPresent()) {
+            throw new IllegalArgumentException("Item with ID " + stockMovement.getItem().getId() + " does not exist.");
+        }
+
+        // Definir a instância gerenciada do item
+        stockMovement.setItem(itemOptional.get());
+
         StockMovement savedStockMovement = stockMovementRepository.save(stockMovement);
+
+        // Atribuir o novo movimento de estoque a pedidos pendentes
         fulfillPendingOrders(stockMovement);
 
         return savedStockMovement;
@@ -46,6 +64,7 @@ public class StockMovementService {
                 remainingStock -= orderQuantity;
                 orderService.fulfillOrder(order);
             } else {
+                // Parcialmente cumpre o pedido, se não há estoque suficiente
                 reduceOrderQuantity(order, orderQuantity - remainingStock);
                 remainingStock = 0;
             }
