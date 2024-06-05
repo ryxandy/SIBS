@@ -28,6 +28,11 @@ public class OrderService {
         order.setCreationDate(LocalDateTime.now());
         order.setStatus("PENDING");
 
+        int availableStock = calculateAvailableStock(order.getItem().getId());
+
+        if (availableStock >= order.getQuantity()) {
+            fulfillOrder(order);
+        }
 
         return orderRepository.save(order);
     }
@@ -42,4 +47,8 @@ public class OrderService {
 
         return availableStock;
     }
-}
+
+    private void fulfillOrder(Order order) {
+        order.setStatus("FULFILLED");
+    }
+   }
