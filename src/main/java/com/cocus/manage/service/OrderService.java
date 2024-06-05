@@ -4,8 +4,11 @@ import com.cocus.manage.OrderStatus;
 import com.cocus.manage.model.Item;
 import com.cocus.manage.model.Order;
 import com.cocus.manage.model.StockMovement;
+import com.cocus.manage.model.User;
+import com.cocus.manage.repository.ItemRepository;
 import com.cocus.manage.repository.OrderRepository;
 import com.cocus.manage.repository.StockMovementRepository;
+import com.cocus.manage.repository.UserRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderService {
@@ -28,19 +32,37 @@ public class OrderService {
     @Autowired
     private JavaMailSender mailSender;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private ItemRepository itemRepository;
+
     private static final Logger logger = LogManager.getLogger(OrderService.class);
 
     public Order createOrder(Order order) {
+
+        Optional<Item> itemOptional = itemRepository.findById(order.getItem().getId());
+        Optional<User> userOptional = userRepository.findById(order.getUser().getId());
+        if (!itemOptional.isPresent() || !userOptional.isPresent()) {
+            throw new IllegalArgumentException("Item or User not found");
+        }
+        
+        order.setItem(itemOptional.get());
+        order.setUser(userOptional.get());
+
+        if (order.getUser().getEmail() == null || order.getUser().getEmail().isEmpty()) {
+            throw new IllegalArgumentException("User email is null or empty");
+        }
+
         order.setCreationDate(LocalDateTime.now());
         order.setStatus(OrderStatus.PENDING);
 
         int availableStock = calculateAvailableStock(order.getItem().getId());
+
         if (availableStock >= order.getQuantity()) {
             fulfillOrder(order);
-        }else{
-
         }
-
         return orderRepository.save(order);
     }
 
