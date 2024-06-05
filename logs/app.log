@@ -3048,3 +3048,36 @@ java.lang.NullPointerException: Cannot invoke "String.length()" because "s" is n
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.24.jar:10.1.24]
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.24.jar:10.1.24]
 	at java.base/java.lang.Thread.run(Thread.java:1583) [?:?]
+2024-06-05 16:42:23 INFO  LocalContainerEntityManagerFactoryBean:650 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-06-05 16:42:23 INFO  HikariDataSource:349 - HikariPool-1 - Shutdown initiated...
+2024-06-05 16:42:23 INFO  HikariDataSource:351 - HikariPool-1 - Shutdown completed.
+2024-06-05 16:42:41 INFO  ManageApplication:50 - Starting ManageApplication using Java 21.0.3 with PID 10056 (C:\Users\014320631\Downloads\cocus\Projeto\manage\target\classes started by AlexandreJesus in C:\Users\014320631\Downloads\cocus\Projeto\manage)
+2024-06-05 16:42:41 INFO  ManageApplication:654 - No active profile set, falling back to 1 default profile: "default"
+2024-06-05 16:42:41 INFO  DevToolsPropertyDefaultsPostProcessor:252 - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-06-05 16:42:41 INFO  DevToolsPropertyDefaultsPostProcessor:252 - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-06-05 16:42:43 INFO  RepositoryConfigurationDelegate:143 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-06-05 16:42:43 INFO  RepositoryConfigurationDelegate:211 - Finished Spring Data repository scanning in 198 ms. Found 4 JPA repository interfaces.
+2024-06-05 16:42:45 INFO  TomcatWebServer:111 - Tomcat initialized with port 8080 (http)
+2024-06-05 16:42:45 INFO  Http11NioProtocol:173 - Initializing ProtocolHandler ["http-nio-8080"]
+2024-06-05 16:42:45 INFO  StandardService:173 - Starting service [Tomcat]
+2024-06-05 16:42:45 INFO  StandardEngine:173 - Starting Servlet engine: [Apache Tomcat/10.1.24]
+2024-06-05 16:42:45 INFO  [/]:173 - Initializing Spring embedded WebApplicationContext
+2024-06-05 16:42:45 INFO  ServletWebServerApplicationContext:296 - Root WebApplicationContext: initialization completed in 4312 ms
+2024-06-05 16:42:46 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-06-05 16:42:46 INFO  Version:44 - HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-06-05 16:42:46 INFO  RegionFactoryInitiator:50 - HHH000026: Second-level cache disabled
+2024-06-05 16:42:47 INFO  SpringPersistenceUnitInfo:87 - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-06-05 16:42:47 INFO  HikariDataSource:109 - HikariPool-1 - Starting...
+2024-06-05 16:42:48 INFO  HikariPool:554 - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@390e25eb
+2024-06-05 16:42:48 INFO  HikariDataSource:122 - HikariPool-1 - Start completed.
+2024-06-05 16:42:48 WARN  deprecation:153 - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-06-05 16:42:50 INFO  JtaPlatformInitiator:59 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-06-05 16:42:50 INFO  LocalContainerEntityManagerFactoryBean:437 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-06-05 16:42:52 WARN  JpaBaseConfiguration$JpaWebConfiguration:236 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-06-05 16:42:53 INFO  OptionalLiveReloadServer:59 - LiveReload server is running on port 35729
+2024-06-05 16:42:53 INFO  Http11NioProtocol:173 - Starting ProtocolHandler ["http-nio-8080"]
+2024-06-05 16:42:53 INFO  TomcatWebServer:243 - Tomcat started on port 8080 (http) with context path '/'
+2024-06-05 16:42:53 INFO  ManageApplication:56 - Started ManageApplication in 13.123 seconds (process running for 17.306)
+2024-06-05 16:43:42 INFO  LocalContainerEntityManagerFactoryBean:650 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-06-05 16:43:42 INFO  HikariDataSource:349 - HikariPool-1 - Shutdown initiated...
+2024-06-05 16:43:42 INFO  HikariDataSource:351 - HikariPool-1 - Shutdown completed.

@@ -47,7 +47,7 @@ public class OrderService {
         if (!itemOptional.isPresent() || !userOptional.isPresent()) {
             throw new IllegalArgumentException("Item or User not found");
         }
-        
+
         order.setItem(itemOptional.get());
         order.setUser(userOptional.get());
 

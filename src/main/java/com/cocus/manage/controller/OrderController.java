@@ -1,5 +1,4 @@
 package com.cocus.manage.controller;
-
 import com.cocus.manage.model.Order;
 import com.cocus.manage.repository.OrderRepository;
 import com.cocus.manage.service.OrderService;
@@ -36,8 +35,36 @@ public class OrderController {
     }
 
     @PostMapping
-    public Order createOrder(@RequestBody Order order) {
-        return orderService.createOrder(order);
+    public ResponseEntity<Order> createOrder(@RequestBody Order order) {
+        try {
+            Order createdOrder = orderService.createOrder(order);
+            return ResponseEntity.status(201).body(createdOrder);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Order> updateOrder(@PathVariable Long id, @RequestBody Order orderDetails) {
+        Optional<Order> order = orderRepository.findById(id);
+        if (order.isPresent()) {
+            Order existingOrder = order.get();
+            existingOrder.setQuantity(orderDetails.getQuantity());
+            Order updatedOrder = orderRepository.save(existingOrder);
+            return ResponseEntity.ok().body(updatedOrder);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
+        Optional<Order> order = orderRepository.findById(id);
+        if (order.isPresent()) {
+            orderRepository.delete(order.get());
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
