@@ -1,4 +1,5 @@
 package com.cocus.manage.service;
+import com.cocus.manage.OrderStatus;
 import com.cocus.manage.model.Order;
 import com.cocus.manage.model.StockMovement;
 import com.cocus.manage.repository.OrderRepository;
@@ -32,7 +33,7 @@ public class StockMovementService {
     }
 
     private void fulfillPendingOrders(StockMovement stockMovement) {
-        List<Order> pendingOrders = orderRepository.findByItemAndStatus(stockMovement.getItem(), "PENDING");
+        List<Order> pendingOrders = orderRepository.findByItemAndStatus(stockMovement.getItem(), OrderStatus.PENDING);
         int remainingStock = stockMovement.getQuantity();
 
         for (Order order : pendingOrders) {

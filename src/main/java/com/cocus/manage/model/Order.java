@@ -1,5 +1,6 @@
 package com.cocus.manage.model;
 
+import com.cocus.manage.OrderStatus;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -27,6 +28,7 @@ public class Order {
     @ManyToOne
     private User user;
 
-    private String status; // PENDING or FULFILLED
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
 }
 

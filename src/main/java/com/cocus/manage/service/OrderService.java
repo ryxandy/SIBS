@@ -1,5 +1,6 @@
 package com.cocus.manage.service;
 
+import com.cocus.manage.OrderStatus;
 import com.cocus.manage.model.Item;
 import com.cocus.manage.model.Order;
 import com.cocus.manage.model.StockMovement;
@@ -32,7 +33,7 @@ public class OrderService {
 
     public Order createOrder(Order order) {
         order.setCreationDate(LocalDateTime.now());
-        order.setStatus("PENDING");
+        order.setStatus(OrderStatus.PENDING);
 
         int availableStock = calculateAvailableStock(order.getItem().getId());
         if (availableStock >= order.getQuantity()) {
@@ -54,7 +55,7 @@ public class OrderService {
     }
 
     void fulfillOrder(Order order) {
-        order.setStatus("FULFILLED");
+        order.setStatus(OrderStatus.FULFILLED);
         updateStock(order.getItem(), order.getQuantity());
         sendOrderCompletionEmail(order);
         logOrderCompletion(order);
