@@ -1,5 +1,6 @@
 package com.cocus.manage.service;
 
+import com.cocus.manage.model.Item;
 import com.cocus.manage.model.Order;
 import com.cocus.manage.model.StockMovement;
 import com.cocus.manage.repository.OrderRepository;
@@ -52,10 +53,9 @@ public class OrderService {
         return availableStock;
     }
 
-    private void fulfillOrder(Order order) {
+    void fulfillOrder(Order order) {
         order.setStatus("FULFILLED");
-
-        //need to come back here to create the create update the stock method
+        updateStock(order.getItem(), order.getQuantity());
         sendOrderCompletionEmail(order);
         logOrderCompletion(order);
     }
@@ -70,6 +70,30 @@ public class OrderService {
         mailSender.send(message);
     }
 
+    private void updateStock(Item item, int orderQuantity) {
+
+        List<StockMovement> stockMovements = stockMovementRepository.findByItemIdOrderByCreationDateAsc(item.getId());
+
+        int remainingQuantityToReduce = orderQuantity;
+        for (StockMovement stockMovement : stockMovements) {
+            if (remainingQuantityToReduce <= 0) {
+                break;
+            }
+
+            int availableQuantity = stockMovement.getQuantity();
+            if (availableQuantity <= remainingQuantityToReduce) {
+                remainingQuantityToReduce -= availableQuantity;
+                stockMovement.setQuantity(0);
+            } else {
+                stockMovement.setQuantity(availableQuantity - remainingQuantityToReduce);
+                remainingQuantityToReduce = 0;
+            }
+            stockMovementRepository.save(stockMovement);
+        }
+        if (remainingQuantityToReduce > 0) {
+            throw new IllegalStateException("You dont have enough stock of this item: " + item.getName());
+        }
+    }
 
     private void logOrderCompletion(Order order) {
         logger.info("Order completed: " + order);
