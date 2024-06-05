@@ -50,6 +50,8 @@ public class OrderService {
 
     private void fulfillOrder(Order order) {
         order.setStatus("FULFILLED");
+
+        //need to come back here to create the create update the stock method
         logOrderCompletion(order);
     }
 
