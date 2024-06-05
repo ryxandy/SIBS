@@ -41,16 +41,18 @@ public class OrderService {
     private static final Logger logger = LogManager.getLogger(OrderService.class);
 
     public Order createOrder(Order order) {
-
+        // Verificar se o item e o usuário existem
         Optional<Item> itemOptional = itemRepository.findById(order.getItem().getId());
         Optional<User> userOptional = userRepository.findById(order.getUser().getId());
         if (!itemOptional.isPresent() || !userOptional.isPresent()) {
             throw new IllegalArgumentException("Item or User not found");
         }
 
+        // Definir a instância gerenciada do item e usuário
         order.setItem(itemOptional.get());
         order.setUser(userOptional.get());
 
+        // Verificar se o email do usuário não é nulo
         if (order.getUser().getEmail() == null || order.getUser().getEmail().isEmpty()) {
             throw new IllegalArgumentException("User email is null or empty");
         }
@@ -63,6 +65,7 @@ public class OrderService {
         if (availableStock >= order.getQuantity()) {
             fulfillOrder(order);
         }
+
         return orderRepository.save(order);
     }
 
