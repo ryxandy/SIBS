@@ -80,7 +80,7 @@ public class OrderService {
         return availableStock;
     }
 
-    void fulfillOrder(Order order) {
+    public void fulfillOrder(Order order) {
         order.setStatus(OrderStatus.FULFILLED);
         updateStock(order.getItem(), order.getQuantity());
         sendOrderCompletionEmail(order);
@@ -98,6 +98,10 @@ public class OrderService {
     }
 
     private void updateStock(Item item, int orderQuantity) {
+        if (item == null) {
+            throw new IllegalStateException("Item cannot be null");
+        }
+
         List<StockMovement> stockMovements = stockMovementRepository.findByItemIdOrderByCreationDateAsc(item.getId());
 
         int remainingQuantityToReduce = orderQuantity;
@@ -123,7 +127,6 @@ public class OrderService {
             throw new IllegalStateException("Estoque insuficiente para o item: " + item.getName());
         }
     }
-
 
     private void logOrderCompletion(Order order) {
         logger.info("Order completed: " + order);
