@@ -50,5 +50,10 @@ public class OrderService {
 
     private void fulfillOrder(Order order) {
         order.setStatus("FULFILLED");
+        logOrderCompletion(order);
     }
-   }
+
+    private void logOrderCompletion(Order order) {
+        logger.info("Order completed: " + order);
+    }
+}
