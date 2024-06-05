@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface StockMovementRepository extends JpaRepository<StockMovement, Long> {
     List<StockMovement> findByItemId(Long itemId);
+    List<StockMovement> findByItemIdOrderByCreationDateAsc(Long itemId);
 }

@@ -7,6 +7,7 @@ import com.cocus.manage.repository.StockMovementRepository;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -22,6 +23,9 @@ public class OrderService {
     @Autowired
     private StockMovementRepository stockMovementRepository;
 
+    @Autowired
+    private JavaMailSender mailSender;
+
 
     private static final Logger logger = (Logger) LogManager.getLogger(OrderService.class);
 
@@ -30,7 +34,6 @@ public class OrderService {
         order.setStatus("PENDING");
 
         int availableStock = calculateAvailableStock(order.getItem().getId());
-
         if (availableStock >= order.getQuantity()) {
             fulfillOrder(order);
         }
@@ -53,15 +56,20 @@ public class OrderService {
         order.setStatus("FULFILLED");
 
         //need to come back here to create the create update the stock method
+        sendOrderCompletionEmail(order);
         logOrderCompletion(order);
     }
+
 
     private void sendOrderCompletionEmail(Order order) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(order.getUser().getEmail());
         message.setSubject("Order Completed");
         message.setText("Your order for " + order.getQuantity() + " " + order.getItem().getName() + " is complete.");
+
+        mailSender.send(message);
     }
+
 
     private void logOrderCompletion(Order order) {
         logger.info("Order completed: " + order);
