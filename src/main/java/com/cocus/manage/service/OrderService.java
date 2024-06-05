@@ -71,10 +71,10 @@ public class OrderService {
     }
 
     private void updateStock(Item item, int orderQuantity) {
-
         List<StockMovement> stockMovements = stockMovementRepository.findByItemIdOrderByCreationDateAsc(item.getId());
 
         int remainingQuantityToReduce = orderQuantity;
+
         for (StockMovement stockMovement : stockMovements) {
             if (remainingQuantityToReduce <= 0) {
                 break;
@@ -88,12 +88,15 @@ public class OrderService {
                 stockMovement.setQuantity(availableQuantity - remainingQuantityToReduce);
                 remainingQuantityToReduce = 0;
             }
+
             stockMovementRepository.save(stockMovement);
         }
+
         if (remainingQuantityToReduce > 0) {
-            throw new IllegalStateException("You dont have enough stock of this item: " + item.getName());
+            throw new IllegalStateException("Estoque insuficiente para o item: " + item.getName());
         }
     }
+
 
     private void logOrderCompletion(Order order) {
         logger.info("Order completed: " + order);
