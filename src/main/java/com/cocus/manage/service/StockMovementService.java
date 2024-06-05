@@ -26,8 +26,6 @@ public class StockMovementService {
     public StockMovement createStockMovement(StockMovement stockMovement) {
         stockMovement.setCreationDate(LocalDateTime.now());
         StockMovement savedStockMovement = stockMovementRepository.save(stockMovement);
-
-        // Atribuir o novo movimento de estoque a pedidos pendentes
         fulfillPendingOrders(stockMovement);
 
         return savedStockMovement;
@@ -47,7 +45,6 @@ public class StockMovementService {
                 remainingStock -= orderQuantity;
                 orderService.fulfillOrder(order);
             } else {
-                // Parcialmente cumpre o pedido, se não há estoque suficiente
                 reduceOrderQuantity(order, orderQuantity - remainingStock);
                 remainingStock = 0;
             }
