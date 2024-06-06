@@ -41,18 +41,17 @@ public class OrderService {
     private static final Logger logger = LogManager.getLogger(OrderService.class);
 
     public Order createOrder(Order order) {
-        // Verificar se o item e o usuário existem
+        logger.info("Creating the order " + order);
         Optional<Item> itemOptional = itemRepository.findById(order.getItem().getId());
         Optional<User> userOptional = userRepository.findById(order.getUser().getId());
         if (!itemOptional.isPresent() || !userOptional.isPresent()) {
             throw new IllegalArgumentException("Item or User not found");
         }
 
-        // Definir a instância gerenciada do item e usuário
         order.setItem(itemOptional.get());
         order.setUser(userOptional.get());
 
-        // Verificar se o email do usuário não é nulo
+        logger.info("Starting validations ");
         if (order.getUser().getEmail() == null || order.getUser().getEmail().isEmpty()) {
             throw new IllegalArgumentException("User email is null or empty");
         }
@@ -65,7 +64,7 @@ public class OrderService {
         if (availableStock >= order.getQuantity()) {
             fulfillOrder(order);
         }
-
+        logger.info("Validations completed");
         return orderRepository.save(order);
     }
 
@@ -81,7 +80,9 @@ public class OrderService {
     }
 
     public void fulfillOrder(Order order) {
+        logger.info("Fulfilling your order, status " + order.getStatus());
         order.setStatus(OrderStatusEnum.FULFILLED);
+        logger.info("Fulfilling your order, status " + order.getStatus());
         updateStock(order.getItem(), order.getQuantity());
         sendOrderCompletionEmail(order);
         logOrderCompletion(order);
@@ -89,12 +90,14 @@ public class OrderService {
 
 
     private void sendOrderCompletionEmail(Order order) {
+        logger.info("Starting the process to send email to: " + order.getUser().getEmail());
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(order.getUser().getEmail());
         message.setSubject("Order Completed");
         message.setText("Your order for " + order.getQuantity() + " " + order.getItem().getName() + " is complete.");
 
         mailSender.send(message);
+        logger.info("Email successfully sent");
     }
 
     private void updateStock(Item item, int orderQuantity) {
