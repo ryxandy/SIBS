@@ -1,6 +1,6 @@
 package com.cocus.manage.model;
 
-import com.cocus.manage.OrderStatus;
+import com.cocus.manage.enums.OrderStatusEnum;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -30,6 +30,6 @@ public class Order {
     private User user;
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus status;
+    private OrderStatusEnum status;
 }
 

@@ -17,9 +17,6 @@ import static org.mockito.Mockito.*;
 
 class StockMovementServiceTest {
 
-    @InjectMocks
-    private StockMovementService stockMovementService;
-
     @Mock
     private StockMovementRepository stockMovementRepository;
 

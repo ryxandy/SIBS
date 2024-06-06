@@ -2,6 +2,7 @@ package com.cocus.manage;
 
 
 
+import com.cocus.manage.enums.OrderStatusEnum;
 import com.cocus.manage.model.Item;
 import com.cocus.manage.model.Order;
 import com.cocus.manage.model.StockMovement;
@@ -89,14 +90,14 @@ class OrderServiceTest {
 
         Order savedOrder = new Order();
         savedOrder.setId(1L);
-        savedOrder.setStatus(OrderStatus.FULFILLED);
+        savedOrder.setStatus(OrderStatusEnum.FULFILLED);
         savedOrder.setQuantity(5);
 
         when(orderRepository.save(any(Order.class))).thenReturn(savedOrder);
 
         Order result = orderService.createOrder(order);
 
-        assertEquals(OrderStatus.FULFILLED, result.getStatus());
+        assertEquals(OrderStatusEnum.FULFILLED, result.getStatus());
     }
 
     @Test
@@ -110,7 +111,7 @@ class OrderServiceTest {
         order.setItem(item);
         order.setUser(user);
         order.setQuantity(5);
-        order.setStatus(OrderStatus.PENDING);
+        order.setStatus(OrderStatusEnum.PENDING);
 
         StockMovement stockMovement = new StockMovement();
         stockMovement.setItem(item);
@@ -120,7 +121,7 @@ class OrderServiceTest {
 
         orderService.fulfillOrder(order);
 
-        assertEquals(OrderStatus.FULFILLED, order.getStatus());
+        assertEquals(OrderStatusEnum.FULFILLED, order.getStatus());
         verify(stockMovementRepository, times(1)).save(any(StockMovement.class));
         verify(mailSender, times(1)).send(any(SimpleMailMessage.class));
     }

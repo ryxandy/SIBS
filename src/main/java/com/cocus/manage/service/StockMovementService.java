@@ -1,5 +1,5 @@
 package com.cocus.manage.service;
-import com.cocus.manage.OrderStatus;
+import com.cocus.manage.enums.OrderStatusEnum;
 import com.cocus.manage.model.Item;
 import com.cocus.manage.model.Order;
 import com.cocus.manage.model.StockMovement;
@@ -51,7 +51,7 @@ public class StockMovementService {
     }
 
     private void fulfillPendingOrders(StockMovement stockMovement) {
-        List<Order> pendingOrders = orderRepository.findByItemAndStatus(stockMovement.getItem(), OrderStatus.PENDING);
+        List<Order> pendingOrders = orderRepository.findByItemAndStatus(stockMovement.getItem(), OrderStatusEnum.PENDING);
         int remainingStock = stockMovement.getQuantity();
 
         for (Order order : pendingOrders) {
