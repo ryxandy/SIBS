@@ -4793,3 +4793,63 @@ Correct the classpath of your application so that it contains compatible version
 2024-06-05 20:09:57 INFO  LocalContainerEntityManagerFactoryBean:650 - Closing JPA EntityManagerFactory for persistence unit 'default'
 2024-06-05 20:09:57 INFO  HikariDataSource:349 - HikariPool-1 - Shutdown initiated...
 2024-06-05 20:09:57 INFO  HikariDataSource:351 - HikariPool-1 - Shutdown completed.
+2024-06-05 20:38:08 INFO  ManageApplication:50 - Starting ManageApplication using Java 21.0.3 with PID 21008 (C:\Users\014320631\Downloads\cocus\Projeto\manage\target\classes started by AlexandreJesus in C:\Users\014320631\Downloads\cocus\Projeto\manage)
+2024-06-05 20:38:08 INFO  ManageApplication:654 - No active profile set, falling back to 1 default profile: "default"
+2024-06-05 20:38:08 INFO  DevToolsPropertyDefaultsPostProcessor:252 - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-06-05 20:38:08 INFO  DevToolsPropertyDefaultsPostProcessor:252 - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-06-05 20:38:09 INFO  RepositoryConfigurationDelegate:143 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-06-05 20:38:10 INFO  RepositoryConfigurationDelegate:211 - Finished Spring Data repository scanning in 118 ms. Found 4 JPA repository interfaces.
+2024-06-05 20:38:11 INFO  TomcatWebServer:111 - Tomcat initialized with port 8080 (http)
+2024-06-05 20:38:11 INFO  Http11NioProtocol:173 - Initializing ProtocolHandler ["http-nio-8080"]
+2024-06-05 20:38:11 INFO  StandardService:173 - Starting service [Tomcat]
+2024-06-05 20:38:11 INFO  StandardEngine:173 - Starting Servlet engine: [Apache Tomcat/10.1.24]
+2024-06-05 20:38:11 INFO  [/]:173 - Initializing Spring embedded WebApplicationContext
+2024-06-05 20:38:11 INFO  ServletWebServerApplicationContext:296 - Root WebApplicationContext: initialization completed in 3161 ms
+2024-06-05 20:38:11 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-06-05 20:38:11 INFO  Version:44 - HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-06-05 20:38:11 INFO  RegionFactoryInitiator:50 - HHH000026: Second-level cache disabled
+2024-06-05 20:38:12 INFO  SpringPersistenceUnitInfo:87 - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-06-05 20:38:12 INFO  HikariDataSource:109 - HikariPool-1 - Starting...
+2024-06-05 20:38:13 INFO  HikariPool:554 - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@388ebb39
+2024-06-05 20:38:13 INFO  HikariDataSource:122 - HikariPool-1 - Start completed.
+2024-06-05 20:38:13 WARN  deprecation:153 - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-06-05 20:38:14 INFO  JtaPlatformInitiator:59 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-06-05 20:38:15 INFO  LocalContainerEntityManagerFactoryBean:437 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-06-05 20:38:16 WARN  JpaBaseConfiguration$JpaWebConfiguration:236 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-06-05 20:38:17 INFO  OptionalLiveReloadServer:59 - LiveReload server is running on port 35729
+2024-06-05 20:38:17 INFO  Http11NioProtocol:173 - Starting ProtocolHandler ["http-nio-8080"]
+2024-06-05 20:38:17 INFO  TomcatWebServer:243 - Tomcat started on port 8080 (http) with context path '/'
+2024-06-05 20:38:17 INFO  ManageApplication:56 - Started ManageApplication in 10.205 seconds (process running for 12.498)
+2024-06-05 20:38:29 INFO  [/]:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-06-05 20:38:29 INFO  DispatcherServlet:532 - Initializing Servlet 'dispatcherServlet'
+2024-06-05 20:38:29 INFO  DispatcherServlet:554 - Completed initialization in 0 ms
+2024-06-05 22:46:20 WARN  HikariPool:797 - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h56m53s5ms636µs300ns).
+2024-06-05 22:48:02 INFO  Http11Processor:175 - Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+java.lang.IllegalArgumentException: Invalid character found in method name [0x160x030x010x060xb20x010x000x060xae0x030x030x050x190xdc:0xa20xaa0xa3i0x0by*0xae(0xcc0x8d90x83>0xef0x8cj0x1e0xdf0xbbB0x93lKq0x8d0xa4a ]. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:407) ~[tomcat-embed-core-10.1.24.jar:10.1.24]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:262) ~[tomcat-embed-core-10.1.24.jar:10.1.24]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.24.jar:10.1.24]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) ~[tomcat-embed-core-10.1.24.jar:10.1.24]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741) ~[tomcat-embed-core-10.1.24.jar:10.1.24]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.24.jar:10.1.24]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190) ~[tomcat-embed-core-10.1.24.jar:10.1.24]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.24.jar:10.1.24]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.24.jar:10.1.24]
+	at java.base/java.lang.Thread.run(Thread.java:1583) [?:?]
+2024-06-05 22:48:02 INFO  Http11Processor:175 - Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+java.lang.IllegalArgumentException: Invalid character found in method name [0x160x030x010x060xd20x010x000x060xce0x030x030xa70xa4:0x9d0xf8S0x87?0x83)0xd40xc50x1f0xff0xa6U_0xf4T0x18>0x82l0xa4M0xf90xe3"0x0b90x8d0xc9 ]. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:407) ~[tomcat-embed-core-10.1.24.jar:10.1.24]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:262) ~[tomcat-embed-core-10.1.24.jar:10.1.24]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.24.jar:10.1.24]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) ~[tomcat-embed-core-10.1.24.jar:10.1.24]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741) ~[tomcat-embed-core-10.1.24.jar:10.1.24]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.24.jar:10.1.24]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190) ~[tomcat-embed-core-10.1.24.jar:10.1.24]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.24.jar:10.1.24]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.24.jar:10.1.24]
+	at java.base/java.lang.Thread.run(Thread.java:1583) [?:?]
+2024-06-05 23:20:49 INFO  LocalContainerEntityManagerFactoryBean:650 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-06-05 23:20:49 INFO  HikariDataSource:349 - HikariPool-1 - Shutdown initiated...
+2024-06-05 23:20:49 INFO  HikariDataSource:351 - HikariPool-1 - Shutdown completed.
